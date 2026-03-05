@@ -17,6 +17,21 @@ Run tests locally:
 PYTHONPATH=. pytest tests/
 ```
 
+## Docker
+
+Build the image:
+```bash
+docker build -t azure-rag-app .
+```
+
+Run the container:
+```bash
+docker run -d \
+  --name rag-consumer \
+  --env-file .env \
+  azure-rag-app
+```
+
 ## CI/CD
 
 This repository uses GitHub Actions for automated testing on every push to the `main` branch.

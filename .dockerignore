@@ -1,0 +1,16 @@
+.env
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+node_modules/
+dist/
+build/
+faiss_index/
+*.log
+temp/
+tests/
+Dockerfile
+.dockerignore
+.github/
+.git/
+README.md
