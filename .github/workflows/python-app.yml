@@ -5,12 +5,13 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-    
+
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: AZURE_RAG_APP_ENV
 
     steps:
     - uses: actions/checkout@v4
