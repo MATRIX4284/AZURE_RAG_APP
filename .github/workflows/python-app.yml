@@ -59,7 +59,7 @@ jobs:
       run: |
         docker push kaustavcontainerregistry.azurecr.io/azure-rag-app:latest
 
-#########################################Deployment#####################################################################    
+###########################################Deployment#####################################################################    
 
     - name: Azure Login
       uses: azure/login@v2
@@ -76,8 +76,8 @@ jobs:
         resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
         containerAppEnvironment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
         imageToDeploy: kaustavcontainerregistry.azurecr.io/azure-rag-app:latest
-        #environmentVariables: |
-        #  AZURE_STORAGE_CONNECTION_STRING=${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
-        #  AZURE_OPENAI_ENDPOINT=${{ secrets.AZURE_OPENAI_ENDPOINT }}
-        #  AZURE_OPENAI_API_VERSION=${{ secrets.AZURE_OPENAI_API_VERSION }}
-        #  AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME=${{ secrets.AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME }}
+        environmentVariables: |
+          AZURE_STORAGE_CONNECTION_STRING=${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+          AZURE_OPENAI_ENDPOINT=${{ secrets.AZURE_OPENAI_ENDPOINT }}
+          AZURE_OPENAI_API_VERSION=${{ secrets.AZURE_OPENAI_API_VERSION }}
+          AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME=${{ secrets.AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME }}
