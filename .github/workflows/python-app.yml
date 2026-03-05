@@ -64,11 +64,15 @@ jobs:
     - name: Deploy to Azure Container Apps
       uses: azure/container-apps-deploy-action@v1
       with:
-        registry-login-server: ${{ secrets.AZURE_CONTAINER_REGISTRY_LOGIN_SERVER }}
-        registry-username: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
-        registry-password: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
-        container-name: azure-rag-app
-        image: kaustavcontainerregistry.azurecr.io/azure-rag-app:latest
-        resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
-        environment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
-        image-pull-secret: acr-secret
+        registryUrl: ${{ secrets.AZURE_CONTAINER_REGISTRY_LOGIN_SERVER }}
+        registryUsername: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
+        registryPassword: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
+        containerAppName: azure-rag-app
+        resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+        containerAppEnvironment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
+        imageToDeploy: kaustavcontainerregistry.azurecr.io/azure-rag-app:latest
+        #environmentVariables: |
+        #  AZURE_STORAGE_CONNECTION_STRING=${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+        #  AZURE_OPENAI_ENDPOINT=${{ secrets.AZURE_OPENAI_ENDPOINT }}
+        #  AZURE_OPENAI_API_VERSION=${{ secrets.AZURE_OPENAI_API_VERSION }}
+        #  AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME=${{ secrets.AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME }}
