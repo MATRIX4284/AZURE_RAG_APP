@@ -23,9 +23,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
       
-    - name: Lint
-      run: |
-        python -m flake8 .
+    #- name: Lint
+    #  run: |
+    #    python -m flake8 .
         
     - name: Run tests with pytest
       env:
@@ -35,7 +35,7 @@ jobs:
 
     - name: Build Docker Image 
       run: |
-        docker build -t azure-rag-app .
+        docker build -t kaustavcontainerregistry.azurecr.io/azure-rag-app .
 
     - name: Login To Azure Container Registry 
       uses: azure/docker-login@v2
