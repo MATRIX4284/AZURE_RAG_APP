@@ -1,0 +1,45 @@
+Creating the Event Bus:
+
+az provider register --namespace Microsoft.EventGrid
+
+az provider show --namespace Microsoft.EventGrid --query "registrationState"
+
+# Create Blob Container
+az storage container create --name uploads --account-name kaustavst --auth-mode login
+
+
+# Create Storage Queue
+az storage queue create --name blob-event-queue --account-name kaustavst --auth-mode login
+
+# Get the ID of your storage account
+STORAGE_ID=$(az storage account show --name kaustavst --resource-group kaustav_rg --query id --output tsv)
+
+# Create the System Topic for the Storage Account
+
+##System topic's location must match with location of the source resource /subscriptions/ed30c0d8-b03a-454d-96a8-6fe54400a879/resourceGroups/kaustav_rg/providers/Microsoft.Storage/storageAccounts/kaustavst.Check what the location of storage account going to storage account --> Overview
+
+
+az eventgrid system-topic create \
+    --name blob-system-topic \
+    --resource-group kaustav_rg \
+    --location canadacentral \
+    --source $STORAGE_ID \
+    --topic-type Microsoft.Storage.StorageAccounts
+    
+    
+    
+# Link the Topic to the Queue
+az eventgrid system-topic event-subscription create \
+    --name blob-to-queue-sub \
+    --resource-group kaustav_rg \
+    --system-topic blob-system-topic \
+    --endpoint-type storagequeue \
+    --endpoint $STORAGE_ID/queueservices/default/queues/blob-event-queue \
+    --included-event-types Microsoft.Storage.BlobCreated
+    
+###################Get Azure Storage Connection String########################
+
+az storage account show-connection-string \
+    --name kaustavst \
+    --resource-group kaustav_rg \
+    --query connectionString --output tsv

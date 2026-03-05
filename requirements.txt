@@ -1,0 +1,14 @@
+python-dotenv
+azure-identity
+openai
+azure-storage-blob
+azure-storage-queue
+azure-eventgrid
+docling
+langchain
+langchain-openai
+langchain-community
+faiss-cpu
+pytest
+pytest-asyncio
+pytest-mock

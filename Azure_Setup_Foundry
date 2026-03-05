@@ -1,0 +1,106 @@
+
+Step 1:
+ls -la /home/matrix4284/AZURE_RAG_APP
+
+Step 2:
+az --version
+
+Step 3:
+az ad sp create-for-rbac --name "my-rag-app-sp" --role "Cognitive Services OpenAI User" --scopes "/subscriptions/ed30c0d8-b03a-454d-96a8-6fe54400a879/resourceGroups/kaustav_rg"
+
+Step 4:
+Create .env file
+Summary for your .env file:
+.env
+AZURE_CLIENT_ID=<your appId>
+AZURE_CLIENT_SECRET=<your password>
+AZURE_TENANT_ID=<your tenant>
+
+
+
+
+Step 5: Create and Configure Azure OpenAI
+
+1. Create the Azure OpenAI Resource
+Log in to the Azure Portal.
+Search for Azure OpenAI in the top search bar.
+Click Create and fill in the details (Subscription, Resource Group, Region, and a Name for your resource).
+Wait for the deployment to finish, then click Go to resource.
+
+
+2. Find the Endpoint and API Key
+Inside your Azure OpenAI resource, look at the left-hand menu.
+
+Under Resource Management, click on Keys and Endpoint.
+Endpoint: Copy the URL (it looks like https://your-resource-name.openai.azure.com/).
+Add this to your .env as AZURE_OPENAI_ENDPOINT.
+
+
+Key: If you choose to use an API Key instead of a Service Principal, copy KEY 1 else leave AZURE_OPENAI_API_KEY as blank
+
+
+3. Create Model Deployments
+You need to "deploy" specific models before you can use them.
+
+Go to the Overview tab of your resource and click Go to Foundry Portal
+
+On Left Panel Under Shared Resource --> Go to Deployment
+
+Click on Deploy Model --> Confirm
+
+Select Model --> Deploy to selected Resources
+
+Click Create new deployment:
+
+gpt-4.1.
+
+Edit .env and add AZURE_OPENAI_CHAT_DEPLOYMENT_NAME="gpt-4.1"
+
+
+Step 6:
+Run the verify_credentials.py to verify all the connections.
+
+Step 7:
+nano  .gitignore
+It should look like this:
+
+text
+.env
+__pycache__/
+*.pyc
+...
+
+
+Step 8:
+
+To give your Service Principal access to any project and its models, you should assign the roles at the Resource Group level in the Azure Portal.
+
+Roles Needed:
+Azure AI Developer: This is the best role for broad access. It allows using, creating, and managing models across the whole Hub/Project.
+Cognitive Services OpenAI User: Required for specifically calling Azure OpenAI models.
+Azure AI Inference SDK User: Needed for the newer models (like Kimi or Cohere) that use the Inference API in Foundry.
+How to Assign:
+Go to the Azure Portal.
+Find the Resource Group where your AI Foundry Hub/Projects are located.
+Click Access Control (IAM) > Add role assignment.
+Select Azure AI Developer.
+Under "Assign access to", choose User, group, or service principal.
+Click Select members and search for your Service Principal name (the displayName from your previous step).
+Click Review + assign.
+
+
+Step 9:
+
+For accessing models from a different project need to 
+
+set environment variable in .env to the base of the project:
+
+AZURE_OPENAI_ENDPOINT="https://kaustav-foundry-project-resource.services.ai.azure.com".
+
+and then to access the model.
+
+
+
+
+  
+  
