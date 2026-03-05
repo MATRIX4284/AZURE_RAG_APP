@@ -58,3 +58,17 @@ jobs:
     - name: Push Docker Image
       run: |
         docker push kaustavcontainerregistry.azurecr.io/azure-rag-app:latest
+
+    
+
+    - name: Deploy to Azure Container Apps
+      uses: azure/container-apps-deploy@v1
+      with:
+        registry-login-server: ${{ secrets.AZURE_CONTAINER_REGISTRY_LOGIN_SERVER }}
+        registry-username: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
+        registry-password: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
+        container-name: azure-rag-app
+        image: kaustavcontainerregistry.azurecr.io/azure-rag-app:latest
+        resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
+        environment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
+        image-pull-secret: acr-secret
