@@ -46,4 +46,4 @@ jobs:
 
     - name: Push Docker Image
       run: |
-        docker push azure-rag-app:latest
+        docker push kaustavcontainerregistry.azurecr.io/azure-rag-app:latest
