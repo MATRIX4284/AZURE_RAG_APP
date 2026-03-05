@@ -17,3 +17,5 @@ Create a new one:
 
 az ad sp credential reset \
 --id <your appId of Service Principal>
+
+test
