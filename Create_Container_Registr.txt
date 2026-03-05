@@ -1,0 +1,19 @@
+1. Create Azure Container Registry
+
+
+2.
+Role Assignment for GitHub Actions to push Docker Image to Azure Container Registry
+
+az role assignment create --assignee <your appId of Service Principal> --role acrpush --scope $(az acr show --name kaustavcontainerregistry --query id --output tsv)
+
+3.Test Docker Login
+docker login kaustavcontainerregistry.azurecr.io \
+-u <your appId of Service Principal> \
+-p <your password of Service Principal>
+
+In case If You Lost the Secret (Most Common Case)
+
+Create a new one:
+
+az ad sp credential reset \
+--id <your appId of Service Principal>
